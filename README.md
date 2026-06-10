@@ -2,7 +2,7 @@
 
 A lightweight, memory-backed RESTful API built in Go using the **Gin Web Framework**. This project provides standard CRUD operations to manage a collection of books, allowing you to create, read, update (checkout/return), and delete records seamlessly.
 
-## 🚀 Features
+## Features
 
 - **Full CRUD Support**: Add, view, find, and delete books instantly.
 - **Transactional Simulation**: Simulate library transactions through explicit checkout and return mechanics.
@@ -11,7 +11,7 @@ A lightweight, memory-backed RESTful API built in Go using the **Gin Web Framewo
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Language**: Go (Golang)
 - **Framework**: [Gin Web Framework](https://github.com/gin-gonic/gin)
@@ -19,7 +19,7 @@ A lightweight, memory-backed RESTful API built in Go using the **Gin Web Framewo
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 - `main.go`: Contains the foundational route handlers, model declarations (`book` struct), application configuration, and initialization routines.
 - `body.json`: Sample payload structure representing a model instance for API integration and requests.
@@ -69,7 +69,7 @@ A lightweight, memory-backed RESTful API built in Go using the **Gin Web Framewo
 
 ---
 
-## 💻 How to Run the Project
+## How to Run the Project
 
 Follow these steps to set up and run the API application locally on your machine.
 
@@ -77,3 +77,81 @@ Follow these steps to set up and run the API application locally on your machine
 Make sure you have **Go** installed on your system (version 1.16+ is highly recommended). You can verify your installation by running:
 ```bash
 go version
+```
+
+
+## Part 1: Initialize the Module
+
+If you haven't initialized a Go module in your project directory yet, open your terminal and run:
+
+```bash
+go mod init book-api
+```
+
+> **Note:** If a `go.mod` file already exists in your directory, you can safely skip this step.
+
+---
+
+## Part 2: Install Dependencies
+
+Download and install the Gin Web Framework package required for this project:
+
+```bash
+go get github.com/gin-gonic/gin
+```
+
+---
+
+## Part 3: Start the Server
+
+Compile and run the primary application file:
+
+```bash
+go run main.go
+```
+
+Once executed, the development server will spin up and dynamically bind to your local port:
+
+```text
+[GIN-debug] Listening and serving HTTP on localhost:8080
+```
+
+---
+
+# Testing with cURL
+
+With the server running on `localhost:8080`, open a separate terminal window to interact with the endpoints.
+
+## Fetch All Books
+
+```bash
+curl http://localhost:8080/books
+```
+
+## Add a Book (Using the Sample Payload File)
+
+```bash
+curl -X POST http://localhost:8080/books \
+-H "Content-Type: application/json" \
+-d @body.json
+```
+
+## Add a Book (Explicit JSON String)
+
+```bash
+curl -X POST http://localhost:8080/books \
+-H "Content-Type: application/json" \
+-d '{"id": "5", "title": "Atomic Habits", "author": "James Clear", "quantity": 1000}'
+```
+
+## Checkout a Book
+
+```bash
+curl -X PATCH "http://localhost:8080/checkout?id=2"
+```
+
+## Delete a Book
+
+```bash
+curl -X DELETE http://localhost:8080/books/1
+```
